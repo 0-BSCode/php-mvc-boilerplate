@@ -5,6 +5,7 @@ use \Models\Task;
 
 class Test
 {
+  private $taskModel;
   public function __construct()
   {
     $this->taskModel = new Task;
@@ -26,7 +27,7 @@ class Test
   }
 
   // READ all tasks
-  private function getTasks() : array
+  private function getTasks(): array
   {
     return $this->taskModel->selectAll();
   }

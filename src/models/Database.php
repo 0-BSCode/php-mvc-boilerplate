@@ -1,4 +1,4 @@
-<?php 
+<?php
 namespace Models;
 
 use \PDO;
@@ -31,12 +31,9 @@ class Database
     ];
 
     // Create PDO Instance
-    try
-    {
+    try {
       $this->db_handler = new PDO($dsn, $this->user, $this->pass, $options);
-    }
-    catch(PDOException $e)
-    {
+    } catch (PDOException $e) {
       $this->error = $e->getMessage();
       echo $this->error;
     }
@@ -51,10 +48,8 @@ class Database
   // Bind values
   public function bind($param, $value, $type = null)
   {
-    if (is_null($type))
-    {
-      switch (true) 
-      {
+    if (is_null($type)) {
+      switch (true) {
         case is_int($value):
           $type = PDO::PARAM_INT;
           break;
@@ -66,7 +61,7 @@ class Database
         case is_null($value):
           $type = PDO::PARAM_NULL;
           break;
-        
+
         default:
           $type = PDO::PARAM_STR;
       }

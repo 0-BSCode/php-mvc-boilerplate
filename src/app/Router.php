@@ -16,7 +16,7 @@ class Router
    * @param  string $file Path to file
    * @return Router       Instance of router in order to use the other methods
    */
-  public static function load(string $file) : Router
+  public static function load(string $file): Router
   {
     $router = new static;
 
@@ -32,7 +32,7 @@ class Router
    * @param  array  $params   This array stores 'controller' and 'action of each route (if passed)
    * @return void
    */
-  public function addRoute(string $route, array $params = []) : void
+  public function addRoute(string $route, array $params = []): void
   {
     // Escape forward slashes
     $route = preg_replace('/\//', '\\/', $route);
@@ -56,20 +56,15 @@ class Router
    * @param  string $uri        Full route like 'task/add-task'
    * @return void
    */
-  public function setParams(string $uri) : void
+  public function setParams(string $uri): void
   {
     // Store parameters for current 'controller' and 'action'
-    foreach ($this->routes as $route => $params) 
-    {
-      if (preg_match($route, $uri, $matches)) 
-      {
-        
-        foreach ($matches as $key => $match) 
-        {
-          if (is_string($key)) 
-          {
-            if ($key === 'controller') 
-            {
+    foreach ($this->routes as $route => $params) {
+      if (preg_match($route, $uri, $matches)) {
+
+        foreach ($matches as $key => $match) {
+          if (is_string($key)) {
+            if ($key === 'controller') {
               $match = ucwords($match);
             }
 
@@ -91,28 +86,22 @@ class Router
    * ... and this can be used or not if the method doesn't receive any arguments 
    * @return void
    */
-  public function redirect() : void
+  public function redirect(): void
   {
     $controller = $this->getNamespace() . $this->params['controller'];
     $action = $this->capitalizeAction($this->params['action']);
 
-    if (class_exists($controller)) 
-    {
+    if (class_exists($controller)) {
       $controller = new $controller;
       unset($this->params['controller']);
 
-      if (is_callable([$controller, $action])) 
-      {
+      if (is_callable([$controller, $action])) {
         unset($this->params['action']);
         unset($this->params['namespace']);
-      }
-      else
-      {
+      } else {
         die('Page not found.');
       }
-    }
-    else 
-    {
+    } else {
       header('location: ' . URLROOT);
     }
 
@@ -123,12 +112,11 @@ class Router
    * Get the namespace for the requested controller class
    * @return string $namespace String for the complete namespace
    */
-  private function getNamespace() : string
+  private function getNamespace(): string
   {
     $namespace = '\\Controllers\\';
 
-    if (array_key_exists('namespace', $this->params))
-    {
+    if (array_key_exists('namespace', $this->params)) {
       $namespace .= $this->params['namespace'] . '\\';
     }
 
@@ -142,11 +130,11 @@ class Router
    * @param string $action Get the 'action' from the URL
    * @return string      Camel Cased 'action' string
    */
-  private function capitalizeAction(string $action) : string
+  private function capitalizeAction(string $action): string
   {
     $action = explode('-', $action);
 
-    for($i=1; $i < count($action); $i++){
+    for ($i = 1; $i < count($action); $i++) {
       $action[$i] = ucwords($action[$i]);
     }
 

@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 // Static pages routes
 $router->addRoute('', ['controller' => 'Index', 'action' => 'home']);

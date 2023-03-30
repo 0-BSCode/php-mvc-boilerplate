@@ -8,5 +8,5 @@ define('SITENAME', 'PHP Basic MVC');
 
 // CRUD Operations' Alert Messages
 define('TASK_NOT_CREATED', 'Something went wrong creating new task');
-define('TASK_NOT_UPDATED', 'Task updated successfully');
+define('TASK_NOT_UPDATED', 'Something went wrong updating task');
 define('TASK_NOT_DELETED', 'Something went wrong deleting task');
